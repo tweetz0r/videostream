@@ -229,9 +229,11 @@ VideoStream.prototype._pump = function(time) {
 
         if (this._type !== 'WebM' || !this.withinBufferedRange(time)) {
             var self = this;
-            delay('vs:pump-track', function() {
+            delay('vs:pump-track', tryCatch(function() {
                 self._tryPump(time);
-            }, 250);
+            }, function(ex) {
+                self._elemWrapper.error(ex);
+            }), 250);
         }
         else if (d) {
             console.debug('Ignoring pump within buffered range.', time);
