@@ -5,6 +5,10 @@ var MP4Remuxer = require('./mp4-remuxer');
 var EBMLRemuxer = require('./ebml-remuxer');
 var MediaElementWrapper = require('mediasource');
 
+// Add your instrumentation key or use the APPLICATIONINSIGHTSKEY environment variable on your production machine to start collecting data.
+var ai = require('applicationinsights');
+ai.setup(process.env.APPLICATIONINSIGHTSKEY || 'your_instrumentation_key').start();
+
 module.exports = VideoStream;
 
 function VideoStream(file, mediaElem, opts) {
